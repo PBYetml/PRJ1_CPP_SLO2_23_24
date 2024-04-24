@@ -32,7 +32,7 @@
 //----------------------------------------------------------------------------------//
 user::user(short limitmax, short limitmin) : CST_VAL_LIMIT_MAX(limitmax), CST_VAL_LIMIT_MIN(limitmin)
 {
-	 // ne fait rien juste à initialiser les cst lié à l'objet
+	// ne fait rien juste à initialiser les cst lié à l'objet
 }
 
 
@@ -55,17 +55,17 @@ void user::AfficherMsgUser(user::e_MsgInfo msg)
 	switch (msg)
 	{
 		//-- msg 1 : 
-		case user::e_MsgInfo::message1 : 
-			std::cout << "Inserez un nombre (ex: 3.00)  : "; 
-			break; 
-		case user::e_MsgInfo::message2 : 
-			std::cout << "!! Erreur !! -> valeur hors limite" << std::endl; 
-			break; 
-		case user::e_MsgInfo::message3 : 
-			std::cout << "!! Erreur !! -> valeur entière " << std::endl; 
-			break; 
-		default : 
-			break; 
+	case user::e_MsgInfo::message1:
+		std::cout << "Inserez un nombre (ex: 3.00)  : ";
+		break;
+	case user::e_MsgInfo::message2:
+		std::cout << "!! Erreur !! -> valeur hors limite" << std::endl;
+		break;
+	case user::e_MsgInfo::message3:
+		std::cout << "!! Erreur !! -> valeur entière " << std::endl;
+		break;
+	default:
+		break;
 	}
 }
 
@@ -80,7 +80,7 @@ void user::AfficherMsgUser(user::e_MsgInfo msg)
 //----------------------------------------------------------------------------------//
 float user::GetNumberValue()
 {
-	return valUser_m; 
+	return valUser_m;
 }
 
 
@@ -101,11 +101,11 @@ float user::GetNumberValue()
 float user::SetNumberValue()
 {
 	//-- déclaration variables --// 
-	float valConvReel; 
+	float valConvReel;
 
 	//-- déclaration d'objet --//
-	std::string valUser; 
-	
+	std::string valUser;
+
 	//-- récupération info clavier -> string --// 
 	std::cin >> valUser;
 
@@ -113,7 +113,7 @@ float user::SetNumberValue()
 	valConvReel = std::stof(valUser);
 
 	//-- retour de la valeur de l'utilisateur --// 
-	return valConvReel; 
+	return valConvReel;
 }
 
 //----------------------------------------------------------------------------------//
@@ -128,26 +128,26 @@ float user::SetNumberValue()
 bool user::ValiderValUser(float valATester)
 {
 	//-- déclaration de variable --//
-	bool checkValeur = false; 
+	bool checkValeur = false;
 
-	float difference; 
+	float difference;
 
 	//-- test si valATester dans les limites --// 
 	if ((valATester < CST_VAL_LIMIT_MAX) && (valATester >= CST_VAL_LIMIT_MIN))
 	{
 		//-- calcul pour savoir si il y a une différence entre valeur réelle et entière 
-		difference = valATester - (int)valATester; 
+		difference = valATester - (int)valATester;
 
 		//-- test si valeur est entière 
 		if (difference == (float)0.0)
 		{
 			checkValeur = true;
-			valUser_m = valATester; 
+			valUser_m = valATester;
 		}
 		else
 		{
 			//-- message user : non réel 
-			this->AfficherMsgUser(e_MsgInfo::message3); 
+			this->AfficherMsgUser(e_MsgInfo::message3);
 			checkValeur = false;
 		}
 	}
@@ -170,21 +170,21 @@ bool user::ValiderValUser(float valATester)
 // Date modfification	: le 22.03.2024 
 // Remarque				: 
 //----------------------------------------------------------------------------------//
-void user::AfficherValConvertie(ConversionNumerique *objAConvertir)
+void user::AfficherValConvertie(ConversionNumerique* objAConvertir)
 {
 	//-- délcaration variable --// 
 	char iteration = 0;
-	char iterationDigit;
-	char digit; 
-	
+	char iterationDigit = '0';
+	char digit;
+
 	//-- déclaration objet --// 
-	std::string *valeurAfficher; 
+	std::string* valeurAfficher;
 
 	//-- récupération chaine de caractère à afficher --// 
 	valeurAfficher = objAConvertir->GetValeurConvertie();
 
 	//-- msg user --// 
-	std::cout << " valeur BCD : "; 
+	std::cout << " valeur BCD : ";
 
 	//-- affichage de la valeur binaire dans le bon sens --//
 	//-- iteration 
@@ -196,18 +196,18 @@ void user::AfficherValConvertie(ConversionNumerique *objAConvertir)
 		digit = valeurAfficher[iteration].length();
 
 		//-- préparation de l'affichage pour afficher les zéro 
-		std::cout.width(5 - digit); 
-		std::cout.fill('0'); 
+		std::cout.width(5 - digit);
+		std::cout.fill('0');
 
 		//-- iteration permettant de lire le "LSB" en premier 
 		for (digit; digit > 0; digit--)
-			std::cout << valeurAfficher[iteration][digit -1]; 
+			std::cout << valeurAfficher[iteration][digit - 1];
 
 		//-- affichage d'une espace 
-		std::cout << " "; 
+		std::cout << " ";
 	}
 
 	//-- retour à la ligne
-	std::cout << std::endl; 
+	std::cout << std::endl;
 
 }

@@ -109,7 +109,7 @@ void ConversionNumerique::RecupererDigitEntier(float valUser)
 //----------------------------------------------------------------------------------//
 std::string* ConversionNumerique::GetValeurConvertie()
 {
-							
+
 	return m_ptTbBinaire;
 }
 
@@ -124,5 +124,5 @@ std::string* ConversionNumerique::GetValeurConvertie()
 //----------------------------------------------------------------------------------//
 char ConversionNumerique::GetNbrDigitEntier()
 {
-	return m_nbrDigitMaxValEntier; 
+	return m_nbrDigitMaxValEntier;
 }

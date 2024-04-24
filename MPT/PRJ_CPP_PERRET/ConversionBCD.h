@@ -5,6 +5,7 @@
 // Date de modification : 25.03.2024
 //
 // Auteur 				: Philou (Ph. Bovey)
+// Modification			: Mélissa Perret
 //
 // Description          : ce programme est relié au projet n°1 C++ - SLO2
 //
@@ -23,35 +24,40 @@
 
 class ConversionBCD : public ConversionNumerique
 {
-		public :
-		//-- attribut --// 
-		//-> visibilité 
-		//--> public
-		//--> protected 
-		//--> private 
+public:
+	//-- attribut --// 
+	//-> visibilité 
+	//--> public
+	//--> protected 
+	//--> private 
 
-		//-- prototype -> constructeur --//
-		ConversionBCD();
-		//-> visibilité 
-		//--> public
-		//--> protected 
-		//--> private 
+	//-- prototype -> constructeur --//
+	ConversionBCD();
+	//-> visibilité 
+	//--> public
+	//--> protected 
+	//--> private 
 
 
-		//-- prototype -> destructeur --//
-		~ConversionBCD();
-		//-> visibilité 
-		//--> public
-		//--> protected 
-		//--> private 
+	//-- prototype -> destructeur --//
+	~ConversionBCD();
+	//-> visibilité 
+	//--> public
+	//--> protected 
+	//--> private 
 
-		//-- prototype -> méthode --//
-		void ConversionBCD(e_codageBinaire choixCodage, float valUser);
-		//-> visibilité 
-		//--> public 
-		//--> protected
-		//--> private
+	//-- prototype -> méthode --//
+public:
+	ConversionBCD(e_codageBinaire choixCodage, float valUser);
 
+	//-> visibilité 
+	//--> public 
+	//--> protected
+	//--> private
+private:
+	void CalculerNbrDigitEntier(float valUser);
+	void RecupererDigitEntier(float valUser);
+	void ConversionBinaire();
 };
 
 #endif // !CONV_NUM

@@ -27,27 +27,27 @@
 #define VERSION 01 
 
 //-- programme principale --// 
-int main()
+int main(void)
 {
 	//-- déclaration d'objet allocation statique --// 
 	const std::string infoDev_o = "Philou";					// objet de type string 
-	
+
 	user actionUser_o((unsigned short)10000, 0);			// objet utilisateur -> gestion d'affichage 
 
 	//-- déclaration d'objet allocation dynamique --// 
 
 	//-- déclaration variables 
-	bool validationValUser; 
-	float valUser; 
+	bool validationValUser;
+	float valUser = 0.0;
 
 	//-- message bienvenu projet --// 
 	//-> configuration affichage 
-	std::cout << "PROJET "; 
+	std::cout << "PROJET ";
 	//-> PARTIE A 
 	std::cout.width(2);			// afficher 2 élément 
 	std::cout.fill('0');		// si champs non remplis -> remplace par 0
-	std::cout << NUM_PRJ; 
-	std::cout << " CPP - Version : "; 
+	std::cout << NUM_PRJ;
+	std::cout << " CPP - Version : ";
 	//-> PARTIE B 
 	std::cout.width(2);			// afficher 2 élément 
 	std::cout.fill('0');		// si champs non remplis -> remplace par 0
@@ -63,17 +63,18 @@ int main()
 		//-- recupération d'une valeur réel par l'utilistateur 
 		//-- et la tester si rentre dans les critères
 		validationValUser = actionUser_o.ValiderValUser(actionUser_o.SetNumberValue());
-		
-	}while (!validationValUser);
-	
+
+	} while (!validationValUser);
+
 	//-- choix de la conversion avec l'envoi de la valeur de l'utilisateur --// 
-	//actionUser_o.pt_ObjetConversion = new ConversionBCD (ConversionNumerique::e_codageBinaire::BCD, actionUser_o.GetNumberValue());
+	actionUser_o.pt_ObjetConversion = new ConversionBCD(ConversionNumerique::e_codageBinaire::BCD, actionUser_o.GetNumberValue());
 
 	//-- affichage de la valeur à convertir --//
-	actionUser_o.AfficherValConvertie(actionUser_o.pt_ObjetConversion); 
+	actionUser_o.AfficherValConvertie(actionUser_o.pt_ObjetConversion);
 
-	
+
 	// pour la partie debug
 	system("pause");
 
+	return 0;
 }
