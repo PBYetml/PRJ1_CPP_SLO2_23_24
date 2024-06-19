@@ -5,7 +5,8 @@
 // Date de modification : 22.03.2024
 //
 // Auteur 				: Philou (Ph. Bovey)
-//
+// Modifications		: Mélissa Perret
+// 
 // Description          : ce programme est relié au projet n°1 C++ - SLO2
 //
 // Remarques			:        
@@ -31,23 +32,9 @@
 // Remarque				: si constructeur surchargé - il faut définir le constructeur 
 //						  par défaut + ajouter le lien de au constructeur parent !!!
 //----------------------------------------------------------------------------------//
-
-ConversionBCD::ConversionBCD()
+ConversionBCD::ConversionBCD() : ConversionNumerique() //Constructeur par défaut appelant le constructeur de la class parent
 {
-	if (choixCodage == BCD)
-	{
-		int* m_ptTbDigitEntier[] = { 0 };
-		int* m_nbrDigitMaxValEntier[] = { 0 };
-
-		CalculerNbrDigitEntier(valUser);
-		RecupererDigitEntier(valUser);
-		ConversionBinaire(valUser);
-	}
-	std::cout << "Constructeur de Rectangle" << std::endl;
 }
-
-
-
 
 
 //----------------------------------------------------------------------------------//
@@ -60,30 +47,27 @@ ConversionBCD::ConversionBCD()
 // Date modfification	: le 22.03.2024 
 // Remarque				: 
 //----------------------------------------------------------------------------------//
-
-void ConversionBDC()
+ConversionBCD::ConversionBCD(e_codageBinaire choixCodage, float valUser)
 {
-	int tbdynamique[100] = { 0 };
-	//-- test le choixCodage correspond à l'énumération BCD 
-	if (choixCodage = BCD)
+	if (choixCodage == BCD)
 	{
-		
+		CalculerNbrDigitEntier(valUser);
 
+		//-- création d'un tableau dynamique via pointeur --// 
+		m_ptTbDigitEntier = new char[m_nbrDigitMaxValEntier];
+
+		RecupererDigitEntier(valUser);
+		ConversionBinaire();
 	}
 }
-		//-- création d'un tableau dynamique via pointeur --// 
-	
-	
-		//-- appel fonction : détermine le nb de digit du nombre entier --//
-		
 
-		//-- appel fonction : récuperation de chaque digit --//
+//-- appel fonction : détermine le nb de digit du nombre entier --//
 
 
-		//-- appel fonction : conversion binaire de chaque digit entier --// 
-			
+//-- appel fonction : récuperation de chaque digit --//
 
 
+//-- appel fonction : conversion binaire de chaque digit entier --// 
 
 
 
@@ -98,8 +82,8 @@ void ConversionBDC()
 //----------------------------------------------------------------------------------//
 ConversionBCD::~ConversionBCD()
 {
-}
 
+}
 
 
 //----------------------------------------------------------------------------------//
@@ -111,31 +95,32 @@ ConversionBCD::~ConversionBCD()
 // Date modfification	: le 21.03.2024 
 // Remarque				: 
 //----------------------------------------------------------------------------------//
-
-
+void ConversionBCD::CalculerNbrDigitEntier(float valUser)  //Implémentation de la fonction CalculerNbrDigitEntier de la classe ConversionBCD
+{
 	//-- déclaration de variables --// 
-	void ConversionNumerique(float valUser)
+	char compteurBoucle = 0;
+	int valEntiere = (int)valUser;
+
+
+	while (valEntiere != 0)
 	{
-		while (valUser != 0)
-		{
-
-		}
-
+		valEntiere /= 10;   //valEntiere = valEntiere/10;
+		compteurBoucle++;
 	}
 
-	//-- itération pour connaitre le nbr de digit sur une valeur entière
-	//-- fin de boucle -> égal à 0
+	m_nbrDigitMaxValEntier = compteurBoucle; //m_nbrDigitMaxValEntier contient le nombre de chiffre que l'utilisateur rentre
+}
 
+
+
+//-- itération pour connaitre le nbr de digit sur une valeur entière
+//-- fin de boucle -> égal à 0
 
 		//-- division de la valeur entière par des puissance de 10 : 10^0 => (1), 10^1 => (10), 10^2 => (100) ..
 		//-- et MAJ de la valeur entière
-		
 
 		//-- MAJ du Digit => incrément de 1 --//
-		
-
-
-	//-- MAJ du membre parents -> nbrDigitEntier 
+		//-- MAJ du membre parents -> nbrDigitEntier 
 
 
 
@@ -151,36 +136,31 @@ ConversionBCD::~ConversionBCD()
 // Date modfification	: le 21.03.2024 
 // Remarque				: 
 //----------------------------------------------------------------------------------//
-void RecupererDigitEntier(float valUser)
+void ConversionBCD::RecupererDigitEntier(float valUser)
 {
-	int i;
-	int taille = 0; 
+	//-- déclaration variable --// 
+	int diviseur;
+	int chiffre;
+	int indexChiffre;
 
-	while (valUser != 0)
+	//-- itération pour remplire le tableau de digit --//
+	for (indexChiffre = 0; indexChiffre < m_nbrDigitMaxValEntier; indexChiffre++)
 	{
-		if (isdigit(valUser))
-		{
-			std::cout << "";
-		}
+		diviseur = pow(10, (m_nbrDigitMaxValEntier - (indexChiffre + 1)));
+		chiffre = valUser / diviseur;
+		m_ptTbDigitEntier[indexChiffre] = chiffre;
+		valUser = valUser - (chiffre * diviseur);
 	}
 }
 
-//-- déclaration variable --// 
 
-	 
-	//-- itération pour remplire le tableau de digit --//
+//-- MAJ facteur de puissance de 10 --// 
 
-	 
-		//-- MAJ facteur de puissance de 10 --// 
-		
 
-		//-- MAJ TAbleau -> digit 
-		
+//-- MAJ TAbleau -> digit 
 
-		//-- MAJ valeur utilisateur 
-		
-	
 
+//-- MAJ valeur utilisateur 
 
 
 //----------------------------------------------------------------------------------//
@@ -193,23 +173,45 @@ void RecupererDigitEntier(float valUser)
 // Date modfification	: le 22.03.2024 
 // Remarque				: 
 //----------------------------------------------------------------------------------//
-
-void ConversionBinaire(int valAConv, char(&ptTbDigitEntier)[100])
+void ConversionBCD::ConversionBinaire()
 {
-	char binaireInverse[100] = { 0 } // binaireInverse: 00000 0000
-	int index = 0;
+	const int caractereParChiffre = 4;
+	//125  0001 0010 0101
+	//14 = (3*4)+2
 
-		// commentaires: example pour valAConv = 6
-		while (valAConv != 0)
+	//-- Creation du tableau dynamique de string en fct des digit entier --// 
+	m_ptTbBinaire = new std::string[m_nbrDigitMaxValEntier];
+
+	for (int i = 0; i < m_nbrDigitMaxValEntier; i++)
+	{
+		int chiffre = m_ptTbDigitEntier[i];
+
+		while (chiffre != 0)
 		{
-			binaireInverse[index] = valAConv % 2;  //octal modulo 8
-
-			valAConv = valAConv >> 1;  // divison par deux
-			//valAConv = valAConv / 2; // version alternative  //octal division par 8
-
-			index++;
+			int bit = chiffre % 2;
+			m_ptTbBinaire[i] = m_ptTbBinaire[i] + std::to_string(bit);
+			chiffre = chiffre / 2;
 		}
 
-	std::string binaire = ""; // Initialisez une chaîne de caractères pour stocker le résultat binaire
+	}
 
-			
+}
+
+
+//-- déclaration de variable --//
+
+//-- boucle d'itération pour pour chaque digit --// 
+
+//-- récupère la valeur du digit à convertir --// 
+
+
+//-- itération de conversion binaire --// 	
+
+//-- conversion binaire -> modulo 2 (récupère le reste) --//
+
+
+//-- MAJ de la valeur à convertir --// 
+
+
+//-- MAJ du tabelau string --// 
+
